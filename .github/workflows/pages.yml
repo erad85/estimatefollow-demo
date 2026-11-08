@@ -51,8 +51,20 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Test Save visibility and persistence at three mobile sizes
         run: python tests/test_mobile_quote_playwright.py
+  service-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test the sanitized estimate audit
+        run: python3 -m unittest discover -s services -p 'test_*.py' -v
+      - name: Generate sample deliverable with fictional data
+        run: python3 services/estimate_audit.py services/sample_estimates.csv --as-of 2026-11-07 --output /tmp/estimate-review.md
+      - name: Verify sample deliverable describes opportunity, not revenue
+        run: |
+          grep -q 'Follow-up candidates: \*\*2\*\*' /tmp/estimate-review.md
+          grep -q 'not revenue' /tmp/estimate-review.md
   publish:
-    needs: [verify, mobile-quote-e2e]
+    needs: [verify, mobile-quote-e2e, service-audit]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
