@@ -45,5 +45,33 @@ class AuditTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 audit(p, dt.date(2026, 11, 7))
 
+    def test_suppression_overrides_future_date(self):
+        import csv
+        with tempfile.TemporaryDirectory() as folder:
+            p = Path(folder) / "case.csv"
+            with p.open("w", newline="", encoding="utf-8") as out:
+                writer = csv.writer(out)
+                writer.writerow(("estimate_id","job_type","amount_usd","quote_sent","last_contact","status","reply_received","do_not_contact"))
+                writer.writerow(("EF-DNC","Roof","1000","2026-11-10","2026-11-10","open","false","true"))
+            self.assertEqual(audit(p, dt.date(2026,11,7))[0]["action"], "suppress")
+
+    def test_reject_malformed_extra_cell(self):
+        original = (ROOT / "sample_estimates.csv").read_text()
+        with tempfile.TemporaryDirectory() as folder:
+            p = Path(folder) / "case.csv"
+            lines = original.splitlines()
+            lines[1] += ",unexpected"
+            p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                audit(p, dt.date(2026,11,7))
+
+    def test_reject_formula_in_job_type(self):
+        original = (ROOT / "sample_estimates.csv").read_text()
+        with tempfile.TemporaryDirectory() as folder:
+            p = Path(folder) / "case.csv"
+            p.write_text(original.replace("Bathroom", "=HYPERLINK", 1), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                audit(p, dt.date(2026,11,7))
+
 if __name__ == "__main__":
     unittest.main()
