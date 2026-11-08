@@ -1,0 +1,9 @@
+estimate_id,job_type,amount_usd,quote_sent,last_contact,status,reply_received,do_not_contact
+EF-001,Bathroom remodel,14500,2026-10-21,2026-10-23,open,false,false
+EF-002,Deck replacement,8600,2026-10-30,2026-11-03,open,false,false
+EF-003,Kitchen backsplash,3100,2026-10-27,,open,false,false
+EF-004,Electrical panel,5400,2026-10-20,2026-10-22,won,false,false
+EF-005,Patio repair,2800,2026-10-12,2026-10-14,open,true,false
+EF-006,Garage insulation,2100,2026-10-01,2026-10-01,open,false,false
+EF-007,Interior painting,4400,2026-10-26,2026-10-31,open,false,true
+EF-008,Window replacement,7600,2026-11-02,2026-11-02,open,false,false
