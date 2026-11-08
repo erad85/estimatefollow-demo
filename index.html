@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#102033">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,6 +106,22 @@
 .guide-feedback .consent input{margin-top:3px}
 .guide-privacy{font-size:11px;color:#647487;margin-top:10px}
 @media(max-width:740px){.guide-panel{padding:15px}.guide-progress{grid-template-columns:1fr}.guide-feedback-grid{grid-template-columns:1fr}.guide-controls .btn{min-height:44px}}
+
+/* v0.3.3 mobile save fix: independently scrolling fields, persistent save controls. */
+.create-modal-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.create-modal-actions .btn{min-height:44px;min-width:68px}
+#createOverlay .modal{display:flex;flex-direction:column;max-height:calc(100dvh - 64px);min-height:0}
+#createOverlay .modalhead{flex:0 0 auto}
+#createOverlay #createForm{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden}
+#createOverlay .modalcontent{min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;flex:1 1 auto}
+#createOverlay .modalfoot{flex:0 0 auto;background:white;z-index:1}
+@media(max-width:740px){
+  #createOverlay{padding:0;align-items:flex-end}
+  #createOverlay .modal{width:100%;height:100dvh;max-height:100dvh;border-radius:0}
+  #createOverlay .modalhead{padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+  #createOverlay .modalfoot{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+  #createOverlay .modalfoot .btn-primary{flex:1;min-height:48px}
+}
 </style>
 </head>
 <body>
@@ -179,7 +195,7 @@
     <footer class="footer">EstimateFollow v0.3.2 · Offline-capable installable PWA · Fictional data only · Nothing sent or charged</footer>
   </main>
 </div>
-<div class="overlay" id="createOverlay" role="presentation"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="createTitle"><div class="modalhead"><div><h3 id="createTitle">Add a new estimate</h3><div class="sub">Only saved in this browser</div></div><button class="close" data-close="create" aria-label="Close">×</button></div><form id="createForm"><div class="modalcontent"><div class="fieldgrid"><div class="field"><label for="newName">Customer name *</label><input name="name" id="newName" required maxlength="100" placeholder="e.g., Jordan Taylor"></div><div class="field"><label for="newEmail">Customer email</label><input name="email" id="newEmail" type="email" maxlength="120" placeholder="name@example.com"></div><div class="field"><label for="newPhone">Phone</label><input name="phone" id="newPhone" maxlength="60" placeholder="Optional"></div><div class="field"><label for="newJob">Job type *</label><input name="job" id="newJob" required maxlength="100" placeholder="e.g., Roof replacement"></div><div class="field"><label for="newAmount">Estimate amount ($) *</label><input name="amount" id="newAmount" required type="number" min="0" step="0.01" max="100000000" placeholder="1250.00"></div><div class="field"><label for="newQuote">Quote date *</label><input name="quoteDate" id="newQuote" required type="date"></div><div class="field"><label for="newFollowup">Next follow-up *</label><input name="nextFollowup" id="newFollowup" required type="date"></div><div class="field"><label for="newStatus">Status</label><select name="status" id="newStatus"><option>Quote sent</option><option>Follow-up sent</option><option>Negotiating</option><option>Won</option><option>Lost</option></select></div><div class="field full"><label for="newNotes">Notes</label><textarea name="notes" id="newNotes" maxlength="1000" placeholder="Optional job details"></textarea></div></div></div><div class="modalfoot"><button class="btn" type="button" data-close="create">Cancel</button><button class="btn btn-primary" type="submit">Save estimate</button></div></form></div></div>
+<div class="overlay" id="createOverlay" role="presentation"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="createTitle"><div class="modalhead"><div><h3 id="createTitle">Add a new estimate</h3><div class="sub">Only saved in this browser</div></div><div class="create-modal-actions"><button class="btn btn-primary" type="submit" form="createForm" id="createSaveTopBtn">Save</button><button class="close" data-close="create" aria-label="Close">×</button></div></div><form id="createForm"><div class="modalcontent"><div class="fieldgrid"><div class="field"><label for="newName">Customer name *</label><input name="name" id="newName" required maxlength="100" placeholder="e.g., Jordan Taylor"></div><div class="field"><label for="newEmail">Customer email</label><input name="email" id="newEmail" type="email" maxlength="120" placeholder="name@example.com"></div><div class="field"><label for="newPhone">Phone</label><input name="phone" id="newPhone" maxlength="60" placeholder="Optional"></div><div class="field"><label for="newJob">Job type *</label><input name="job" id="newJob" required maxlength="100" placeholder="e.g., Roof replacement"></div><div class="field"><label for="newAmount">Estimate amount ($) *</label><input name="amount" id="newAmount" required type="number" min="0" step="0.01" max="100000000" placeholder="1250.00"></div><div class="field"><label for="newQuote">Quote date *</label><input name="quoteDate" id="newQuote" required type="date"></div><div class="field"><label for="newFollowup">Next follow-up *</label><input name="nextFollowup" id="newFollowup" required type="date"></div><div class="field"><label for="newStatus">Status</label><select name="status" id="newStatus"><option>Quote sent</option><option>Follow-up sent</option><option>Negotiating</option><option>Won</option><option>Lost</option></select></div><div class="field full"><label for="newNotes">Notes</label><textarea name="notes" id="newNotes" maxlength="1000" placeholder="Optional job details"></textarea></div></div></div><div class="modalfoot"><button class="btn" type="button" data-close="create">Cancel</button><button class="btn btn-primary" type="submit">Save estimate</button></div></form></div></div>
 <div class="overlay drawer-overlay" id="detailOverlay" role="presentation"><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modalhead"><div><div class="eyebrow">Estimate details</div><h3 id="detailTitle">Estimate</h3></div><button class="close" data-close="detail" aria-label="Close">×</button></div><div class="modalcontent" id="detailContent"></div><div class="modalfoot"><button class="btn" data-close="detail">Close</button><button class="btn btn-primary" id="saveDetailBtn">Save changes</button></div></div></div>
 <div class="toast" role="status" aria-live="polite" id="toast"></div>
 <script>
