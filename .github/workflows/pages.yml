@@ -1,0 +1,54 @@
+name: Validate and publish EstimateFollow
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: estimatefollow-pages
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm required demo assets and no private files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s public/index.html
+          test -s public/manifest.webmanifest
+          test -s public/sw.js
+          test -s public/icons/icon.svg
+          python3 - <<'PY'
+          import json,pathlib
+          root=pathlib.Path("public")
+          expected={"index.html","manifest.webmanifest","sw.js","icons/icon.svg"}
+          found={p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()}
+          assert found==expected,(found,expected)
+          m=json.loads((root/"manifest.webmanifest").read_text())
+          assert m["start_url"]=="./index.html"
+          html=(root/"index.html").read_text()
+          assert "estimatefollow" in html.lower()
+          assert "icons/icon.svg" in html
+          assert "serviceWorker" in html
+          assert "example.com" in html
+          print("Public demo asset preflight passed")
+          PY
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
