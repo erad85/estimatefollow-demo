@@ -47,11 +47,13 @@ def audit(path, as_of):
         results = []
         seen = set()
         for rownum, row in enumerate(reader, start=2):
+            if None in row or any(v is None for v in row.values()):
+                raise ValueError(f"Row {rownum}: malformed CSV column count")
             if rownum - 1 > MAX_ROWS:
                 raise ValueError("Too many rows")
             ident = (row["estimate_id"] or "").strip()
             job = (row["job_type"] or "").strip()
-            if not ident or not job or len(ident) > 50 or len(job) > 100 or any(c in ident + job for c in "\n\r|"):
+            if not ident or not job or len(ident) > 50 or len(job) > 100 or any(c in ident + job for c in "\n\r|") or ident.lstrip().startswith(("=", "+", "-", "@")) or job.lstrip().startswith(("=", "+", "-", "@")):
                 raise ValueError(f"Row {rownum}: invalid id or job type")
             if ident in seen:
                 raise ValueError(f"Row {rownum}: duplicate estimate_id")
@@ -64,7 +66,10 @@ def audit(path, as_of):
             dnc = parse_bool(row["do_not_contact"], "do_not_contact", rownum)
             sent = parse_date(row["quote_sent"], "quote_sent", rownum)
             contact = parse_date(row["last_contact"], "last_contact", rownum) if (row["last_contact"] or "").strip() else sent
-            if sent > as_of or contact > as_of or contact < sent:
+            if dnc or status in TERMINAL:
+                category = "suppress"
+                age = max(0, (as_of - contact).days)
+            elif sent > as_of or contact > as_of or contact < sent:
                 category = "review_date"
                 age = 0
             else:
