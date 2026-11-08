@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#102033">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="EstimateFollow">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="description" content="EstimateFollow: a local-only contractor estimate and follow-up workflow prototype.">
+<title>EstimateFollow — Contractor Follow-up App Demo</title>
+<style>
+:root {--navy:#102033;--navy2:#172d43;--ink:#1a2b3b;--muted:#647487;--line:#e1e8ee;--bg:#f4f7fa;--white:#fff;--green:#087f68;--green-bg:#e2f6f0;--amber:#9c6109;--amber-bg:#fff3d8;--red:#ad3d41;--red-bg:#ffebec;--blue:#275aab;--blue-bg:#e7f0ff;--shadow:0 12px 36px rgba(12,35,55,.07)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #73b3db;outline-offset:2px}.app{display:flex;min-height:100vh}.sidebar{width:246px;flex:none;background:var(--navy);color:#e9f0f6;display:flex;flex-direction:column;padding:29px 16px;position:sticky;top:0;height:100vh}.brand{padding:0 13px 26px}.brandmark{width:42px;height:42px;border-radius:13px;background:#2aa691;color:white;display:grid;place-items:center;font-size:24px;font-weight:800;box-shadow:0 8px 20px #050f1929}.brand h1{font-size:18px;letter-spacing:-.6px;margin:14px 0 2px}.brand small{display:block;color:#a9bac9;font-size:12px}.navlist{display:grid;gap:7px}.navbtn{border:0;background:transparent;color:#a9b8c5;padding:13px 14px;border-radius:10px;text-align:left;display:flex;gap:11px;align-items:center;width:100%;font-size:14px;font-weight:650}.navbtn:hover{background:#1b3248;color:#fff}.navbtn.active{background:#26475a;color:#fff}.navbtn .ico{font-size:17px;width:23px;text-align:center}.navcount{margin-left:auto;background:#f8bd60;color:#172235;border-radius:20px;padding:2px 7px;font-size:11px}.sidefoot{margin-top:auto;border-top:1px solid #304359;padding:20px 12px 0;color:#adbfcd;font-size:12px;line-height:1.55}.sidefoot strong{color:#fff}.small-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#65d6ac;margin-right:6px}.main{width:100%;min-width:0;padding:0 35px 60px;max-width:1600px;margin:0 auto}.topbar{height:auto;min-height:115px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:26px 0 22px}.eyebrow{font-weight:700;font-size:12px;letter-spacing:1.4px;color:var(--green);text-transform:uppercase}.topbar h2{font-size:28px;line-height:1.2;margin:5px 0 3px;letter-spacing:-1px}.sub{font-size:13px;color:var(--muted)}.topactions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn{border:1px solid #d5dfe7;border-radius:9px;background:#fff;color:#25384b;padding:10px 14px;font-weight:700;font-size:13px;min-height:38px;display:inline-flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 2px 6px #0b2c4207}.btn:hover{background:#f5f9fb;border-color:#b5cbd6}.btn-primary{background:var(--green);border-color:var(--green);color:#fff}.btn-primary:hover{background:#066f5c;border-color:#066f5c}.btn-danger{color:#a4373e;background:#fff9f9}.btn-min{padding:6px 10px;font-size:12px;min-height:28px}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{border:1px solid #c7e7db;background:#edfaf6;color:#245c4f;border-radius:11px;padding:11px 15px;font-size:13px;margin-bottom:23px;display:flex;align-items:center;gap:10px}.notice b{white-space:nowrap}.view{display:none}.view.active{display:block}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:0 0 23px}.kpi{background:var(--white);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:19px 19px 17px;min-width:0}.kpi-title{font-size:13px;color:var(--muted);font-weight:600}.kpi-value{font-size:29px;font-weight:800;letter-spacing:-1px;margin:7px 0 7px}.kpi-footer{font-size:12px;color:var(--muted)}.kpi-footer.good{color:var(--green)}.kpi-footer.warn{color:#ae6c0b}.sectiongrid{display:grid;grid-template-columns:1.45fr 1fr;gap:18px}.panel{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:15px;overflow:hidden}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:21px 21px 16px}.panelhead h3{font-size:16px;letter-spacing:-.35px;margin:0}.panelhead p{margin:3px 0 0;color:var(--muted);font-size:12px}.panelbody{padding:0 21px 21px}.textlink{background:none;border:0;padding:3px;color:var(--green);font-size:12px;font-weight:750}.queue-row{padding:13px 0;border-bottom:1px solid #edf1f5;display:flex;justify-content:space-between;align-items:center;gap:10px}.queue-row:last-child{border-bottom:0}.queue-info{min-width:0}.queue-info strong{display:block;font-size:13px}.queue-info small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.queue-row .side{display:flex;align-items:flex-end;flex-direction:column;gap:6px;flex:none}.amount{font-weight:750;letter-spacing:-.15px}.badge{padding:4px 8px;border-radius:100px;background:#edf2f6;color:#526475;font-weight:700;font-size:11px;display:inline-block;white-space:nowrap}.badge.due{color:var(--red);background:var(--red-bg)}.badge.today{color:var(--amber);background:var(--amber-bg)}.badge.soon{color:var(--blue);background:var(--blue-bg)}.badge.won{color:var(--green);background:var(--green-bg)}.badge.lost{color:#687583;background:#eff2f5}.progressrow{margin-bottom:17px}.progresslabels{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:8px}.progresslabels strong{font-size:13px}.barbg{height:9px;width:100%;border-radius:30px;background:#edf3f6;overflow:hidden}.barfill{height:100%;border-radius:30px;background:var(--green)}.listnote{background:#f6f9fb;color:#617082;font-size:12px;padding:12px 13px;border-radius:9px;margin-top:13px;line-height:1.55}.step{padding:15px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;font-size:13px;align-items:flex-start}.step:last-child{border:0}.stepnum{width:24px;height:24px;flex:none;background:#e7f4ef;color:#13735c;display:grid;place-items:center;border-radius:8px;font-size:12px;font-weight:800}.step strong{display:block;margin-bottom:3px}.step span{color:var(--muted);line-height:1.45}.tabletools{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:0 21px 16px}.search{min-width:190px;flex:1;border:1px solid #dce5ec;background:#fbfdfe;border-radius:9px;padding:10px 12px;font-size:13px}.filter{border:1px solid #dce5ec;background:#fff;border-radius:9px;padding:10px;color:#304457;font-size:13px}.tablewrap{overflow-x:auto}.datatable{width:100%;border-collapse:collapse;min-width:720px}.datatable th{text-align:left;background:#f7f9fb;padding:13px 17px;color:#69798a;font-size:11px;text-transform:uppercase;letter-spacing:.65px;font-weight:750;border-bottom:1px solid var(--line)}.datatable td{padding:14px 17px;font-size:13px;border-bottom:1px solid #edf1f4;vertical-align:middle}.datatable tbody tr:last-child td{border:0}.datatable tbody tr:hover{background:#f7fbfa;cursor:pointer}.datatable .name{font-weight:750}.datatable small{font-size:12px;color:#718192;display:block;margin-top:4px}.empty{padding:38px 16px;text-align:center;color:#718192;font-size:13px;line-height:1.6}.actions-inline{display:flex;gap:6px;flex-wrap:wrap}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:#4e6071}.field input,.field select,.field textarea{border:1px solid #d9e3ea;background:#fff;border-radius:8px;padding:10px 11px;min-height:40px;color:#172b3c;width:100%;font-size:13px}.field textarea{min-height:95px;resize:vertical;line-height:1.5}.field .helper{font-size:11px;color:#7a8998}.pillgroup{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#eef5f7;border:1px solid #d3e3e6;color:#245b62;padding:6px 10px;border-radius:30px;font-size:12px;font-weight:700}.template-card{border:1px solid var(--line);padding:17px;border-radius:12px;margin-bottom:13px}.template-card h4{margin:0 0 8px;font-size:14px}.template-card p{margin:0;color:#5f7181;font-size:13px;line-height:1.55}.overlay{position:fixed;inset:0;background:rgba(9,24,37,.54);z-index:10;display:none;align-items:flex-start;justify-content:center;padding:32px 15px;overflow:auto}.overlay.open{display:flex}.modal{width:min(650px,100%);background:#fff;border-radius:17px;box-shadow:0 25px 90px #0004;overflow:hidden}.modalhead{display:flex;justify-content:space-between;align-items:center;padding:23px 25px 17px;gap:14px;border-bottom:1px solid var(--line)}.modalhead h3{font-size:18px;letter-spacing:-.35px;margin:0}.close{background:#f0f5f6;border:0;border-radius:8px;width:31px;height:31px;font-size:19px;color:#3b5062}.modalcontent{padding:23px 25px;max-height:calc(100vh - 180px);overflow-y:auto}.modalfoot{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--line);padding:16px 25px}.drawer-overlay{align-items:stretch;justify-content:flex-end;padding:0}.drawer{height:100%;width:min(610px,100%);background:#fff;display:flex;flex-direction:column;box-shadow:-15px 0 50px #0003}.drawer .modalcontent{max-height:none;flex:1}.drawer .modalhead{flex:none}.drawer .modalfoot{flex:none}.sectiontitle{display:flex;justify-content:space-between;align-items:center;margin:23px 0 12px}.sectiontitle h4{margin:0;font-size:14px}.divider{height:1px;background:var(--line);margin:23px 0}.draft{background:#f8fafb;border:1px solid #e0e9ec;padding:13px;border-radius:10px}.draft .field textarea{min-height:190px;background:#fff;font-family:inherit;line-height:1.55}.draft-helpers{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.activity{border-left:2px solid #dce9eb;margin:6px 0 8px 8px;padding-left:18px;list-style:none}.activity li{position:relative;font-size:12px;color:#637486;line-height:1.6;margin-bottom:12px}.activity li:before{content:"";width:8px;height:8px;border-radius:50%;background:#70bba9;position:absolute;left:-23px;top:5px}.activity strong{color:#2b4051}.toast{position:fixed;right:20px;bottom:20px;z-index:50;background:#102d36;color:white;padding:13px 17px;border-radius:10px;box-shadow:0 10px 30px #0003;font-size:13px;max-width:340px;display:none}.toast.show{display:block}.settings-split{display:grid;grid-template-columns:minmax(0,600px) minmax(0,340px);gap:18px}.footer{font-size:12px;color:#8996a3;margin-top:26px;text-align:center}.visuallyhidden{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}.rightsmall{text-align:right}.inline-info{display:flex;align-items:center;gap:6px;font-size:12px;color:#687989}.warning{color:#9a6333;background:#fff4e6;border-radius:8px;padding:11px 13px;font-size:12px;line-height:1.55}
+@media(max-width:1120px){.main{padding:0 24px 45px}.grid4{grid-template-columns:repeat(2,1fr)}.sectiongrid{grid-template-columns:1fr}.settings-split{grid-template-columns:1fr}}
+@media(max-width:740px){.app{display:block}.sidebar{position:static;height:auto;width:100%;padding:13px 15px 10px}.brand{display:flex;align-items:center;gap:10px;padding:0 0 10px}.brandmark{width:34px;height:34px;border-radius:10px;font-size:20px}.brand h1{margin:0;font-size:16px}.brand small{display:none}.navlist{grid-template-columns:repeat(4,1fr);gap:3px}.navbtn{flex-direction:column;gap:3px;text-align:center;justify-content:center;font-size:10px;padding:8px 1px}.navbtn .ico{font-size:17px}.navcount{display:none}.sidefoot{display:none}.main{padding:0 14px 32px}.topbar{padding:22px 0;align-items:flex-start}.topbar h2{font-size:24px}.topactions{width:100%}.topactions .btn{flex:1}.grid4{gap:9px}.kpi{padding:15px 13px}.kpi-value{font-size:22px}.notice{display:block;line-height:1.5}.panelhead{padding:17px}.panelbody{padding:0 17px 18px}.fieldgrid{gap:10px}.modalcontent{padding:16px}.modalhead,.modalfoot{padding:16px}.modalfoot{flex-wrap:wrap}.drawer .modalcontent{padding:18px}.overlay{padding:12px}.drawer-overlay{padding:0}.settings-split{gap:10px}}
+
+/* Version 0.2: touch-friendly responsive app and PWA affordances. */
+.connection-status{margin-left:auto;font-size:11px;font-weight:750;white-space:nowrap;color:#146b59;background:#d4f2e8;padding:5px 9px;border-radius:30px}
+.connection-status.offline{background:#ffe8c5;color:#915906}
+.install-help{margin-top:14px;border:1px solid #d4e7e4;background:#f7fcfa;border-radius:12px;padding:14px 15px;font-size:12px;line-height:1.7;color:#476073}
+.install-help h4{margin:0 0 7px;color:#21403d;font-size:13px}
+.install-help p{margin:5px 0 8px}
+[hidden]{display:none!important}
+@media (max-width:740px){
+ body{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px));}
+ .sidebar{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;width:100%;z-index:8;padding:5px 8px calc(5px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 32px #10203322;border-top:1px solid #334d60}
+ .sidebar .brand{display:none}
+ .navlist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
+ .navbtn{min-height:54px;font-size:11px;line-height:1.2;align-items:center;padding:7px 3px;border-radius:10px;touch-action:manipulation}
+ .navbtn .ico{font-size:21px;line-height:1.1}
+ .navcount{display:inline-block;position:absolute;right:3px;top:3px}
+ .navbtn{position:relative}
+ .main{padding:0 14px 25px;}
+ .topbar{min-height:0;display:block;padding:17px 0 11px}
+ .topbar h2{font-size:25px}
+ .topactions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:13px}
+ .topactions .btn{font-size:11px;padding:8px 6px;min-height:44px;white-space:nowrap;}
+ .topactions #installBtn{grid-column:1/-1}
+ .notice{display:flex;flex-wrap:wrap;gap:7px;padding:10px 12px;margin-bottom:15px;font-size:12px}
+ .notice strong{flex:none}
+ .connection-status{margin-left:0}
+ .grid4{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:14px}
+ .kpi{padding:14px 12px;min-width:0}
+ .kpi-title{font-size:11px;line-height:1.4}
+ .kpi-value{font-size:23px}
+ .kpi-footer{font-size:11px}
+ .panelhead{padding:16px 14px 12px}
+ .panelbody{padding:0 14px 16px}
+ .queue-row{align-items:flex-start}
+ .queue-row .side{min-width:95px}
+ .queue-row .side .badge{white-space:normal;text-align:center}
+ .tabletools{padding:0 14px 13px}
+ .tabletools .search,.tabletools .filter{min-width:0;width:100%;flex-basis:100%;min-height:44px}
+ .datatable{min-width:0;width:100%;display:block}
+ .datatable thead{display:none}
+ .datatable tbody{display:grid;gap:10px;background:#f5f8fa;padding:10px}
+ .datatable tr{display:grid;background:white;border:1px solid #dae5e9;border-radius:12px;padding:11px;gap:5px;box-shadow:0 3px 10px #10203308}
+ .datatable td{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #eef2f4;padding:7px 0;text-align:right;min-width:0;overflow-wrap:anywhere}
+ .datatable td:first-child{display:block;text-align:left}
+ .datatable td:not(:first-child):before{content:attr(data-label);font-size:11px;color:var(--muted);font-weight:700;text-align:left}
+ .datatable td:last-child{border-bottom:0}
+ .datatable td .name{font-size:15px}
+ .datatable td small{font-size:11px}
+ .datatable tr:has(.empty){display:block;border:0;background:transparent;box-shadow:none}
+ .datatable tr:has(.empty) td{display:block;text-align:center;border:0}
+ .fieldgrid{grid-template-columns:1fr;gap:12px}
+ .field.full{grid-column:1}
+ .field input,.field select,.field textarea{min-height:46px;font-size:16px}
+ .overlay{padding:0;align-items:flex-end}
+ .modal{width:100%;border-radius:17px 17px 0 0;max-height:94dvh;display:flex;flex-direction:column}
+ .modalhead{padding:16px}
+ .modalcontent{padding:16px;overflow-y:auto;max-height:none;flex:1}
+ .modalfoot{padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));flex:none}
+ .modalfoot .btn{min-height:44px}
+ .drawer{width:100%;height:96dvh;border-radius:17px 17px 0 0}
+ .drawer .modalcontent{padding:16px}
+ .drawer .modalfoot{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+ .draft .field textarea{font-size:15px}
+ .toast{left:14px;right:14px;bottom:calc(78px + env(safe-area-inset-bottom,0px));text-align:center}
+ .footer{font-size:11px}
+}
+@media (max-width:370px){.topactions .btn{font-size:10px}.kpi-value{font-size:20px}.navbtn{font-size:10px}}
+
+/* v0.3: opt-in anonymous usability-test scorecard (no network collection). */
+.guide-panel{margin:0 0 20px;border:1px solid #b9dfd3;background:linear-gradient(130deg,#f9fffc,#eaf7f4);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.guide-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.guide-head h3{margin:0;font-size:18px;letter-spacing:-.35px}.guide-head p{margin:4px 0 0;color:#4d6870;font-size:12px}
+.guide-progress{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.guide-task{background:#fff;border:1px solid #dbe8e4;border-radius:12px;padding:13px;display:flex;gap:9px;align-items:flex-start;min-width:0;font-size:12px;line-height:1.45}
+.guide-task strong{display:block;font-size:13px;margin-bottom:3px}.guide-task small{display:block;color:var(--muted)}
+.guide-task .guide-check{background:#e9eff3;color:#344d60;border-radius:50%;min-width:23px;height:23px;display:grid;place-items:center;font-weight:800}
+.guide-task.complete{border-color:#87d2b6;background:#edfaf5}.guide-task.complete .guide-check{background:#087f68;color:white}
+.guide-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.guide-instructions{line-height:1.65;font-size:13px;color:#3b5764}
+.guide-feedback{margin-top:16px;padding-top:16px;border-top:1px solid #cfe4db}
+.guide-feedback-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:12px 0}
+.guide-feedback-grid label{font-size:12px;font-weight:700;display:block;margin-bottom:5px}
+.guide-feedback-grid select,.guide-feedback-grid textarea{width:100%;border:1px solid #ccdadd;padding:10px 11px;border-radius:9px;background:#fff;min-height:43px}
+.guide-feedback-grid textarea{min-height:70px;resize:vertical}
+.guide-feedback .consent{font-size:12px;color:#47616a;display:flex;gap:7px;align-items:flex-start;margin-bottom:12px}
+.guide-feedback .consent input{margin-top:3px}
+.guide-privacy{font-size:11px;color:#647487;margin-top:10px}
+@media(max-width:740px){.guide-panel{padding:15px}.guide-progress{grid-template-columns:1fr}.guide-feedback-grid{grid-template-columns:1fr}.guide-controls .btn{min-height:44px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navigation">
+    <div class="brand"><div class="brandmark">↗</div><div><h1>EstimateFollow</h1><small>Keep every quote moving.</small></div></div>
+    <nav class="navlist">
+      <button class="navbtn active" data-nav="overview"><span class="ico">▦</span>Overview</button>
+      <button class="navbtn" data-nav="pipeline"><span class="ico">≡</span>All estimates</button>
+      <button class="navbtn" data-nav="followups"><span class="ico">◷</span>Follow-ups <span class="navcount" id="navCount">0</span></button>
+      <button class="navbtn" data-nav="settings"><span class="ico">⚙</span>Settings</button>
+    </nav>
+    <div class="sidefoot"><span class="small-dot"></span><strong>Offline-capable demo</strong><br>Data stays in this browser.<br>No email or text is sent.</div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Contractor follow-up dashboard</div><h2 id="pageTitle">Overview</h2><div class="sub" id="pageSubtitle">See your quotes and what needs attention.</div></div>
+      <div class="topactions">
+        <button class="btn" id="installBtn" hidden>↧ Install app</button>
+        <button class="btn" id="exportBtn">↓ Export CSV</button>
+        <button class="btn" id="importBtn">↑ Import CSV</button>
+        <button class="btn btn-primary" id="newBtn">+ New estimate</button>
+        <input id="csvFile" type="file" accept=".csv,text/csv" class="visuallyhidden" aria-label="Import CSV file">
+      </div>
+    </header>
+    <div class="notice"><strong>DEMO MODE</strong> All customer names and estimates are fictional. The app prepares drafts for review; it never sends them. <span id="connectionStatus" class="connection-status" role="status" aria-live="polite"></span></div>
+    <section class="view active" id="overviewView" aria-label="Overview">
+      <section id="guidedTestPanel" class="guide-panel" aria-label="Five-minute contractor usability test">
+        <div class="guide-head"><div><h3>Try the 5-minute contractor challenge</h3><p>A measurable demo, using fictional customer information only.</p></div><button class="btn btn-primary" id="startGuideBtn" type="button">Start a fresh test</button></div>
+        <p class="guide-instructions">Please attempt these tasks without help. This is a test of the app, not of the person using it. Nothing is submitted online. <strong>Never enter real customer details.</strong></p>
+        <div class="guide-progress" id="guideProgress" aria-live="polite"></div>
+        <div id="guideStatus" class="guide-instructions" role="status" aria-live="polite">Start a test to measure the workflow.</div>
+        <div class="guide-controls" id="guideControls" hidden>
+          <button id="guideCreateBtn" class="btn" type="button">+ Create test quote</button>
+          <button id="guideFindBtn" class="btn" type="button">Find overdue quote</button>
+          <button id="guideReviewedBtn" class="btn" type="button" title="Use only if the browser prevents clipboard copying">I reviewed draft (manual)</button>
+        </div>
+        <div class="guide-feedback" id="guideFeedback" hidden>
+          <h4 style="margin:0">Feedback — optional and anonymous</h4><p class="guide-instructions">Tell us what would actually make this worth using. The exported report contains no names, amounts, emails, phone numbers, or free-text answers.</p>
+          <form id="guideFeedbackForm">
+            <div class="guide-feedback-grid">
+              <div><label for="guidePain">Do missed follow-ups currently cause problems?</label><select id="guidePain" name="pain"><option value="not_answered">Choose</option><option value="yes">Yes</option><option value="sometimes">Sometimes</option><option value="no">No</option></select></div>
+              <div><label for="guidePilot">Would you try a real pilot?</label><select id="guidePilot" name="pilot"><option value="not_answered">Choose</option><option value="yes">Yes, if data is secure</option><option value="maybe">Maybe</option><option value="no">No</option></select></div>
+              <div><label for="guidePrice">Which price would be reasonable?</label><select id="guidePrice" name="price"><option value="not_answered">Choose</option><option value="149_setup">$149 setup</option><option value="19_month">$19 per month</option><option value="free_only">Free only</option><option value="neither">Neither</option></select></div>
+              <div><label for="guideBlocker">Most important missing feature</label><select id="guideBlocker" name="blocker"><option value="none">Choose (optional)</option><option value="import">Import from quoting software</option><option value="reminders">Automatic reminders</option><option value="two_way_messages">Two-way messaging</option><option value="draft_quality">Better message drafts</option><option value="sync">Sync across devices</option><option value="other">Something else</option></select></div>
+            </div>
+            <label class="consent"><input type="checkbox" id="guideIndependent" name="independent">I completed the tasks without another person coaching me</label>
+            <div class="guide-controls"><button id="exportGuideBtn" class="btn btn-primary" type="submit">↓ Export anonymous test result</button><button id="stopGuideBtn" class="btn" type="button">End test</button></div>
+          </form>
+          <p class="guide-privacy">The report contains only checkboxes and multiple-choice answers and downloads to your device only. No free-text answers, analytics, tracking pixels, customer-data export, network submissions, or automatic contact.</p>
+        </div>
+      </section>
+
+      <div class="grid4" id="stats"></div>
+      <div class="sectiongrid">
+        <div class="panel"><div class="panelhead"><div><h3>Needs your attention</h3><p>Estimates with follow-ups due today or earlier</p></div><button class="textlink" data-nav="followups">View all →</button></div><div class="panelbody" id="overviewDue"></div></div>
+        <div class="panel"><div class="panelhead"><div><h3>Estimate pipeline</h3><p>Open opportunities by stage</p></div></div><div class="panelbody" id="pipelineSummary"></div></div>
+      </div>
+      <div class="panel" style="margin-top:18px"><div class="panelhead"><div><h3>How this demo works</h3><p>Three steps from estimate to consistent follow-up</p></div></div><div class="panelbody" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px"><div class="step"><div class="stepnum">1</div><div><strong>Record an estimate</strong><span>Save the customer, job, dollar value, and follow-up date.</span></div></div><div class="step"><div class="stepnum">2</div><div><strong>Review a message</strong><span>Open a quote and generate a personalized follow-up draft.</span></div></div><div class="step"><div class="stepnum">3</div><div><strong>Track the outcome</strong><span>Mark contacted, won, or lost. All changes stay local.</span></div></div></div></div>
+    </section>
+    <section class="view" id="pipelineView" aria-label="All estimates">
+      <div class="panel"><div class="panelhead"><div><h3>All estimates</h3><p>Click any row to view, edit, or draft a follow-up</p></div><span class="badge" id="totalRecords"></span></div><div class="tabletools"><input class="search" id="searchInput" aria-label="Search estimates" placeholder="Search customer, email, or job…"><select class="filter" id="statusFilter" aria-label="Filter by status"><option value="all">All statuses</option><option>Quote sent</option><option>Follow-up sent</option><option>Negotiating</option><option>Won</option><option>Lost</option></select></div><div class="tablewrap"><table class="datatable"><thead><tr><th>Customer</th><th>Job type</th><th>Estimate</th><th>Status</th><th>Follow-up</th><th></th></tr></thead><tbody id="pipelineBody"></tbody></table></div></div>
+    </section>
+    <section class="view" id="followupsView" aria-label="Follow-up queue">
+      <div class="sectiongrid"><div class="panel"><div class="panelhead"><div><h3>Due now</h3><p>Prioritized by oldest due date</p></div><span class="badge" id="dueCount"></span></div><div class="panelbody" id="dueList"></div></div><div class="panel"><div class="panelhead"><div><h3>Upcoming follow-ups</h3><p>Already scheduled for later</p></div></div><div class="panelbody" id="upcomingList"></div></div></div>
+      <div class="panel" style="margin-top:18px"><div class="panelhead"><div><h3>Follow-up guidelines</h3><p>Suggestions for the operator, not automatic messages</p></div></div><div class="panelbody"><div class="pillgroup"><span class="pill">First follow-up: 2–3 days</span><span class="pill">Second: about a week later</span><span class="pill">Stop when customer opts out</span></div><p style="font-size:13px;color:var(--muted);line-height:1.65">These are adjustable starting points, not guarantees. Only contact customers when you have an appropriate business relationship and comply with applicable consent and messaging rules.</p></div></div>
+    </section>
+    <section class="view" id="settingsView" aria-label="Settings">
+      <div class="settings-split"><div class="panel"><div class="panelhead"><div><h3>Your business identity</h3><p>Used only to personalize the draft messages</p></div></div><div class="panelbody"><form id="settingsForm" class="fieldgrid"><div class="field full"><label for="businessName">Business name</label><input id="businessName" name="businessName" maxlength="80" required></div><div class="field"><label for="senderName">Sender name</label><input id="senderName" name="senderName" maxlength="80" required></div><div class="field"><label for="businessPhone">Business phone (optional)</label><input id="businessPhone" name="businessPhone" maxlength="40"></div><div class="field full"><label for="businessEmail">Business email (optional)</label><input id="businessEmail" name="businessEmail" type="email" maxlength="120"></div><div class="field full"><button class="btn btn-primary" type="submit">Save settings</button></div></form></div></div><div class="panel"><div class="panelhead"><div><h3>Data and privacy</h3><p>Control the local demonstration</p></div></div><div class="panelbody"><p style="font-size:13px;color:var(--muted);line-height:1.6">Data is stored locally in this browser using localStorage where available. There is no server, login, automatic outreach, or cloud synchronization.</p><div class="warning">Use fictional or non-sensitive data in this prototype. Browser storage is not a secure, backed-up customer database and can be cleared.</div><div class="install-help"><h4>Install on your device</h4><p>Open from <strong>localhost</strong> on this computer or from an <strong>HTTPS</strong> site. In Chrome/Edge, use Install when offered; on iPhone, open in Safari and select Share → Add to Home Screen. Opening an HTML file directly does not enable installation or offline caching.</p><p>After the first online visit, the app shell works offline on the same device. Changes stay in this browser and are not synchronized or backed up.</p></div><div style="margin-top:17px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="downloadSample">↓ Sample CSV</button><button class="btn btn-danger" id="resetBtn">Reset demo data</button></div></div></div></div>
+    </section>
+    <footer class="footer">EstimateFollow v0.3.2 · Offline-capable installable PWA · Fictional data only · Nothing sent or charged</footer>
+  </main>
+</div>
+<div class="overlay" id="createOverlay" role="presentation"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="createTitle"><div class="modalhead"><div><h3 id="createTitle">Add a new estimate</h3><div class="sub">Only saved in this browser</div></div><button class="close" data-close="create" aria-label="Close">×</button></div><form id="createForm"><div class="modalcontent"><div class="fieldgrid"><div class="field"><label for="newName">Customer name *</label><input name="name" id="newName" required maxlength="100" placeholder="e.g., Jordan Taylor"></div><div class="field"><label for="newEmail">Customer email</label><input name="email" id="newEmail" type="email" maxlength="120" placeholder="name@example.com"></div><div class="field"><label for="newPhone">Phone</label><input name="phone" id="newPhone" maxlength="60" placeholder="Optional"></div><div class="field"><label for="newJob">Job type *</label><input name="job" id="newJob" required maxlength="100" placeholder="e.g., Roof replacement"></div><div class="field"><label for="newAmount">Estimate amount ($) *</label><input name="amount" id="newAmount" required type="number" min="0" step="0.01" max="100000000" placeholder="1250.00"></div><div class="field"><label for="newQuote">Quote date *</label><input name="quoteDate" id="newQuote" required type="date"></div><div class="field"><label for="newFollowup">Next follow-up *</label><input name="nextFollowup" id="newFollowup" required type="date"></div><div class="field"><label for="newStatus">Status</label><select name="status" id="newStatus"><option>Quote sent</option><option>Follow-up sent</option><option>Negotiating</option><option>Won</option><option>Lost</option></select></div><div class="field full"><label for="newNotes">Notes</label><textarea name="notes" id="newNotes" maxlength="1000" placeholder="Optional job details"></textarea></div></div></div><div class="modalfoot"><button class="btn" type="button" data-close="create">Cancel</button><button class="btn btn-primary" type="submit">Save estimate</button></div></form></div></div>
+<div class="overlay drawer-overlay" id="detailOverlay" role="presentation"><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modalhead"><div><div class="eyebrow">Estimate details</div><h3 id="detailTitle">Estimate</h3></div><button class="close" data-close="detail" aria-label="Close">×</button></div><div class="modalcontent" id="detailContent"></div><div class="modalfoot"><button class="btn" data-close="detail">Close</button><button class="btn btn-primary" id="saveDetailBtn">Save changes</button></div></div></div>
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+<script>
+'use strict';
+(() => {
+const STORE_KEY = 'estimatefollow_v01_demo'; // reuse the same origin-bound storage to preserve v0.1 demo data
+const STATUSES = ['Quote sent','Follow-up sent','Negotiating','Won','Lost'];
+const OPEN_STATUSES = ['Quote sent','Follow-up sent','Negotiating'];
+let currentView = 'overview', activeId = null, currentTone = 'friendly', toastTimer = 0;
+const el = id => document.getElementById(id);
+const today = () => {const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const dayOffset = n => {const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+const niceDate = s => s ? new Date(s + 'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}) : 'Not scheduled';
+const money = v => Number(v || 0).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+const esc = v => String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const id = () => `EF-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+const validIsoDate = s => {if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return false;const d=new Date(s+'T12:00:00');return !Number.isNaN(d.getTime()) && d.getFullYear()===Number(s.slice(0,4)) && d.getMonth()+1===Number(s.slice(5,7)) && d.getDate()===Number(s.slice(8,10));};
+const closeStatus = l => !OPEN_STATUSES.includes(l.status);
+const isDue = l => !closeStatus(l) && Boolean(l.nextFollowup) && l.nextFollowup <= today();
+const defaultState = () => ({
+ settings:{businessName:'Northstar Home Services',senderName:'Alex',businessPhone:'(555) 010-2026',businessEmail:'alex@example.com'},
+ leads:[
+ {id:'DEMO-1001',name:'Jordan Taylor',email:'jordan@example.com',phone:'(555) 010-1101',job:'Roof repair',amount:2800,status:'Quote sent',quoteDate:dayOffset(-8),nextFollowup:dayOffset(-3),lastContact:dayOffset(-8),followups:0,notes:'Repair flashing around chimney.',history:[{date:dayOffset(-8),event:'Estimate entered'}]},
+ {id:'DEMO-1002',name:'Casey Morgan',email:'casey@example.com',phone:'(555) 010-1102',job:'Deck staining',amount:1650,status:'Follow-up sent',quoteDate:dayOffset(-13),nextFollowup:dayOffset(-1),lastContact:dayOffset(-7),followups:1,notes:'Client asked about available colors.',history:[{date:dayOffset(-7),event:'Follow-up marked completed'},{date:dayOffset(-13),event:'Estimate entered'}]},
+ {id:'DEMO-1003',name:'Morgan Lee',email:'morgan@example.com',phone:'(555) 010-1103',job:'HVAC replacement',amount:9400,status:'Negotiating',quoteDate:dayOffset(-10),nextFollowup:today(),lastContact:dayOffset(-3),followups:1,notes:'Asked for financing details.',history:[{date:dayOffset(-3),event:'Moved to Negotiating'},{date:dayOffset(-10),event:'Estimate entered'}]},
+ {id:'DEMO-1004',name:'Taylor Brooks',email:'taylor@example.com',phone:'',job:'Exterior painting',amount:5700,status:'Quote sent',quoteDate:dayOffset(-1),nextFollowup:dayOffset(2),lastContact:dayOffset(-1),followups:0,notes:'Two-story house.',history:[{date:dayOffset(-1),event:'Estimate entered'}]},
+ {id:'DEMO-1005',name:'Riley Chen',email:'riley@example.com',phone:'',job:'Bathroom remodel',amount:12400,status:'Won',quoteDate:dayOffset(-22),nextFollowup:'',lastContact:dayOffset(-16),followups:2,notes:'Approved and booked.',history:[{date:dayOffset(-16),event:'Marked won'},{date:dayOffset(-22),event:'Estimate entered'}]},
+ {id:'DEMO-1006',name:'Drew Patel',email:'drew@example.com',phone:'',job:'Driveway sealing',amount:980,status:'Quote sent',quoteDate:dayOffset(-3),nextFollowup:dayOffset(1),lastContact:dayOffset(-3),followups:0,notes:'',history:[{date:dayOffset(-3),event:'Estimate entered'}]},
+ {id:'DEMO-1007',name:'Avery Davis',email:'avery@example.com',phone:'',job:'Window replacement',amount:6300,status:'Lost',quoteDate:dayOffset(-30),nextFollowup:'',lastContact:dayOffset(-18),followups:2,notes:'Selected a different vendor.',history:[{date:dayOffset(-18),event:'Marked lost'},{date:dayOffset(-30),event:'Estimate entered'}]},
+ {id:'DEMO-1008',name:'Sam Rivera',email:'sam@example.com',phone:'',job:'Fence installation',amount:3600,status:'Quote sent',quoteDate:dayOffset(-2),nextFollowup:dayOffset(3),lastContact:dayOffset(-2),followups:0,notes:'Wood privacy fence.',history:[{date:dayOffset(-2),event:'Estimate entered'}]}
+ ]
+});
+let state;
+let localStorageAvailable = true;
+function load(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return defaultState();const v=JSON.parse(raw);if(!v || !Array.isArray(v.leads) || !v.settings)throw Error('Invalid data');return v;}catch(e){localStorageAvailable=false;return defaultState();}}
+function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state));localStorageAvailable=true;}catch(e){localStorageAvailable=false;toast('Browser storage unavailable; changes may not persist.');}}
+function toast(msg){const x=el('toast');x.textContent=msg;x.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>x.classList.remove('show'),3400);}
+function daysUntil(s){if(!s)return null;const a=new Date(today()+'T12:00:00'),b=new Date(s+'T12:00:00');return Math.round((b-a)/86400000);}
+function dateBadge(l){if(closeStatus(l))return `<span class="badge ${l.status==='Won'?'won':'lost'}">${esc(l.status)}</span>`;if(!l.nextFollowup)return '<span class="badge">Unscheduled</span>';const days=daysUntil(l.nextFollowup);if(days<0)return `<span class="badge due">${Math.abs(days)}d overdue</span>`;if(days===0)return '<span class="badge today">Due today</span>';return `<span class="badge soon">In ${days}d</span>`;}
+function stageBadge(status){return `<span class="badge ${status==='Won'?'won':status==='Lost'?'lost':''}">${esc(status)}</span>`;}
+function dueSorted(){return state.leads.filter(isDue).sort((a,b)=>(a.nextFollowup||'').localeCompare(b.nextFollowup||''));}
+function upcomingSorted(){return state.leads.filter(l=>!closeStatus(l) && l.nextFollowup && !isDue(l)).sort((a,b)=>a.nextFollowup.localeCompare(b.nextFollowup));}
+function rowMini(l){return `<div class="queue-row"><div class="queue-info"><strong>${esc(l.name)}</strong><small>${esc(l.job)} · ${esc(niceDate(l.nextFollowup))}</small></div><div class="side"><span class="amount">${money(l.amount)}</span><div style="display:flex;align-items:center;gap:6px">${dateBadge(l)}<button class="btn btn-min" data-open="${esc(l.id)}">Open</button></div></div></div>`;}
+function renderStats(){const active=state.leads.filter(l=>!closeStatus(l));const won=state.leads.filter(l=>l.status==='Won');const due=dueSorted();const wonValue=won.reduce((a,l)=>a+Number(l.amount),0);
+ el('stats').innerHTML=`<div class="kpi"><div class="kpi-title">Open estimate value</div><div class="kpi-value">${money(active.reduce((a,l)=>a+Number(l.amount),0))}</div><div class="kpi-footer">${active.length} active opportunities</div></div><div class="kpi"><div class="kpi-title">Follow-ups due</div><div class="kpi-value">${due.length}</div><div class="kpi-footer ${due.length?'warn':'good'}">${due.length?'Ready for review':'All caught up'}</div></div><div class="kpi"><div class="kpi-title">Won estimate value</div><div class="kpi-value">${money(wonValue)}</div><div class="kpi-footer good">${won.length} won jobs · demo only</div></div><div class="kpi"><div class="kpi-title">Win rate</div><div class="kpi-value">${(won.length+state.leads.filter(l=>l.status==='Lost').length)?Math.round(won.length/(won.length+state.leads.filter(l=>l.status==='Lost').length)*100):0}%</div><div class="kpi-footer">Of closed estimates only</div></div>`;
+ el('navCount').textContent=due.length;
+ el('overviewDue').innerHTML=due.length?due.slice(0,5).map(rowMini).join(''):(`<div class="empty">No overdue follow-ups. You're all caught up.</div>`);
+ const stages=OPEN_STATUSES.map(s=>({s,ls:state.leads.filter(l=>l.status===s)}));const max=Math.max(...stages.map(x=>x.ls.length),1);
+ el('pipelineSummary').innerHTML=stages.map(x=>`<div class="progressrow"><div class="progresslabels"><span>${esc(x.s)}</span><strong>${x.ls.length} · ${money(x.ls.reduce((t,l)=>t+Number(l.amount),0))}</strong></div><div class="barbg"><div class="barfill" style="width:${x.ls.length/max*100}%"></div></div></div>`).join('')+'<div class="listnote">The dashboard shows tracked quote values, not collected revenue. No conversion outcome is implied by these fictional records.</div>';
+}
+function renderPipeline(){const search=el('searchInput').value.trim().toLowerCase();const filter=el('statusFilter').value;const matches=state.leads.filter(l=>(filter==='all'||l.status===filter)&&[l.name,l.job,l.email,l.phone].join(' ').toLowerCase().includes(search)).sort((a,b)=>b.quoteDate.localeCompare(a.quoteDate));
+ el('totalRecords').textContent=`${matches.length} estimates`;
+ el('pipelineBody').innerHTML=matches.map(l=>`<tr data-open="${esc(l.id)}"><td data-label="Customer"><div class="name">${esc(l.name)}</div><small>${esc(l.email)}</small></td><td data-label="Job">${esc(l.job)}</td><td data-label="Estimate"><strong>${money(l.amount)}</strong></td><td data-label="Stage">${stageBadge(l.status)}</td><td data-label="Reminder">${dateBadge(l)}<small>${esc(niceDate(l.nextFollowup))}</small></td><td data-label="Action"><button class="btn btn-min" data-open="${esc(l.id)}" aria-label="Open details for ${esc(l.name)}">Details →</button></td></tr>`).join('')||'<tr><td colspan="6"><div class="empty">No estimates match. Try another search or add a new estimate.</div></td></tr>';
+}
+function renderQueue(){const due=dueSorted(),up=upcomingSorted();el('dueCount').textContent=`${due.length} due`;el('dueList').innerHTML=due.length?due.map(rowMini).join(''):'<div class="empty">No items due right now.</div>';el('upcomingList').innerHTML=up.length?up.map(rowMini).join(''):'<div class="empty">No upcoming follow-ups scheduled.</div>';}
+function renderSettings(){Object.entries(state.settings).forEach(([k,v])=>{if(el(k))el(k).value=v;});}
+function render(){renderStats();renderPipeline();renderQueue();renderSettings();}
+function showView(view){currentView=view;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view+'View'));document.querySelectorAll('[data-nav]').forEach(x=>x.classList.toggle('active',x.dataset.nav===view));const titles={overview:['Overview','See your quotes and what needs attention.'],pipeline:['All estimates','Track every quote from sent to won or lost.'],followups:['Follow-up queue','Know who needs a personal follow-up today.'],settings:['Settings','Customize your local demonstration.']};el('pageTitle').textContent=titles[view][0];el('pageSubtitle').textContent=titles[view][1];window.scrollTo(0,0);}
+function openCreate(){el('createForm').reset();el('newQuote').value=today();el('newFollowup').value=dayOffset(3);el('createOverlay').classList.add('open');el('newName').focus();}
+function hideOverlay(name){el(name+'Overlay').classList.remove('open');if(name==='detail')activeId=null;}
+function findLead(){return state.leads.find(l=>l.id===activeId);}
+function addHistory(l,msg){l.history=l.history||[];l.history.unshift({date:today(),event:msg});l.history=l.history.slice(0,35);}
+function draftFor(l,tone){const company=state.settings.businessName.trim()||'our team',sender=state.settings.senderName.trim()||'the team',phone=state.settings.businessPhone.trim(),first=l.name.split(' ')[0],price=money(l.amount);
+ const opener={friendly:`Hi ${first},\n\nJust checking in on the ${l.job.toLowerCase()} estimate we shared (${price}). Do you have any questions or need us to clarify anything?`,direct:`Hi ${first},\n\nFollowing up on your ${l.job.toLowerCase()} estimate for ${price}. Are you still considering the project?`,concise:`Hi ${first},\n\nAny questions about the ${l.job.toLowerCase()} estimate (${price})?`}[tone]||'';
+ const closing=tone==='direct'?'If you would like to move forward, reply and we can discuss the next step.':tone==='concise'?'Happy to help whenever you are ready.':'We are happy to help you review options or next steps whenever the timing is right.';
+ return `${opener}\n\n${closing}\n\nThanks,\n${sender}\n${company}${phone?'\n'+phone:''}`;
+}
+function openDetail(i){const l=state.leads.find(x=>x.id===i);if(!l)return;activeId=l.id;currentTone='friendly';el('detailOverlay').classList.add('open');renderDetail();}
+function renderDetail(){const l=findLead();if(!l)return;el('detailTitle').textContent=l.name;
+ el('detailContent').innerHTML=`<div class="pillgroup" style="justify-content:space-between"><span>${stageBadge(l.status)} &nbsp; ${dateBadge(l)}</span><strong style="font-size:17px">${money(l.amount)}</strong></div>
+ <div class="sectiontitle"><h4>Estimate information</h4><span class="sub">${esc(l.id)}</span></div>
+ <form id="detailForm" class="fieldgrid">
+ <div class="field"><label for="detName">Customer name *</label><input id="detName" name="name" maxlength="100" required value="${esc(l.name)}"></div>
+ <div class="field"><label for="detEmail">Customer email</label><input id="detEmail" name="email" type="email" maxlength="120" value="${esc(l.email)}"></div>
+ <div class="field"><label for="detPhone">Phone</label><input id="detPhone" name="phone" maxlength="60" value="${esc(l.phone)}"></div>
+ <div class="field"><label for="detJob">Job type *</label><input id="detJob" name="job" maxlength="100" required value="${esc(l.job)}"></div>
+ <div class="field"><label for="detAmount">Estimate ($) *</label><input id="detAmount" name="amount" type="number" min="0" max="100000000" step="0.01" required value="${Number(l.amount)}"></div>
+ <div class="field"><label for="detStatus">Status</label><select id="detStatus" name="status">${STATUSES.map(s=>`<option ${s===l.status?'selected':''}>${s}</option>`).join('')}</select></div>
+ <div class="field"><label for="detQuote">Estimate date</label><input id="detQuote" name="quoteDate" type="date" required value="${esc(l.quoteDate)}"></div>
+ <div class="field"><label for="detFollowup">Next follow-up</label><input id="detFollowup" name="nextFollowup" type="date" value="${esc(l.nextFollowup)}"></div>
+ <div class="field full"><label for="detNotes">Notes</label><textarea id="detNotes" name="notes" maxlength="1000">${esc(l.notes)}</textarea></div>
+ </form>
+ <div class="sectiontitle"><h4>Suggested follow-up message</h4><span class="badge">Review before sending</span></div>
+ <div class="draft"><div class="draft-helpers"><select class="filter" id="toneSelect" aria-label="Follow-up message tone"><option value="friendly">Friendly</option><option value="direct">Direct</option><option value="concise">Concise</option></select><button class="btn btn-min" id="generateDraftBtn">↻ Regenerate</button><button class="btn btn-min" id="copyDraftBtn">Copy message</button></div><div class="field"><label for="draftBody">Editable message · nothing is sent automatically</label><textarea id="draftBody">${esc(draftFor(l,currentTone))}</textarea></div></div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px"><button class="btn btn-primary" id="contactedBtn" ${closeStatus(l)?'disabled':''}>✓ Mark follow-up completed</button><button class="btn" id="markWonBtn" ${l.status==='Won'?'disabled':''}>Mark won</button><button class="btn" id="markLostBtn" ${l.status==='Lost'?'disabled':''}>Mark lost</button></div>
+ <div class="sectiontitle"><h4>Activity history</h4><span class="sub">${Number(l.followups||0)} follow-up(s) recorded</span></div><ul class="activity">${(l.history||[]).map(h=>`<li><strong>${esc(niceDate(h.date))}</strong> · ${esc(h.event)}</li>`).join('')}</ul>`;
+}
+function validForm(form){if(!form.reportValidity())return false;return true;}
+function saveDetail(){const l=findLead(),form=el('detailForm');if(!l||!validForm(form))return;const f=new FormData(form), oldStatus=l.status;Object.assign(l,{name:String(f.get('name')).trim(),email:String(f.get('email')).trim(),phone:String(f.get('phone')).trim(),job:String(f.get('job')).trim(),amount:Number(f.get('amount')),status:String(f.get('status')),quoteDate:String(f.get('quoteDate')),nextFollowup:String(f.get('nextFollowup')),notes:String(f.get('notes')).trim()});if(!l.name||!l.job||!Number.isFinite(l.amount)||l.amount<0)return toast('Please complete required estimate fields.');if(closeStatus(l))l.nextFollowup='';if(oldStatus!==l.status)addHistory(l,'Status changed to '+l.status);else addHistory(l,'Estimate details updated');persist();render();renderDetail();toast('Estimate saved locally.');}
+function updateStatus(status){const l=findLead();if(!l)return;if(l.status===status)return; l.status=status;l.nextFollowup='';l.lastContact=today();addHistory(l,status==='Won'?'Marked won':'Marked lost');if(status==='Won')guideEvent('won',l.id);persist();render();renderDetail();toast('Status updated.');}
+function markContacted(){const l=findLead();if(!l||closeStatus(l))return;const n=Number(l.followups||0)+1;l.followups=n;l.lastContact=today();if(l.status==='Quote sent')l.status='Follow-up sent';l.nextFollowup=dayOffset(n===1?3:7);addHistory(l,'Follow-up marked completed (manual confirmation)');guideEvent('followed',l.id);persist();render();renderDetail();toast(`Marked completed. Next reminder: ${niceDate(l.nextFollowup)}.`);}
+function csvEscape(v){let s=String(v??'');if(/^[=+@\-\t\r]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}
+function download(name,content){const blob=new Blob([content],{type:'text/csv;charset=utf-8;'});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);}
+const csvFields=['name','email','phone','job','amount','status','quoteDate','nextFollowup','lastContact','followups','notes'];
+function exportCsv(){download('EstimateFollow_export_'+today()+'.csv',[csvFields.join(','),...state.leads.map(l=>csvFields.map(k=>csvEscape(l[k])).join(','))].join('\r\n'));toast('CSV exported.');}
+function csvParse(input){const rows=[],row=[];let field='',inQuote=false;for(let i=0;i<input.length;i++){const c=input[i];if(inQuote){if(c==='"'&&input[i+1]==='"'){field+='"';i++;}else if(c==='"'){inQuote=false;}else{field+=c;}}else if(c==='"'){inQuote=true;}else if(c===','){row.push(field);field='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&input[i+1]==='\n')i++;row.push(field);field='';if(row.some(x=>x.trim()!==''))rows.push([...row]);row.length=0;}else{field+=c;}}if(inQuote)throw Error('Unclosed quote in CSV');if(field||row.length){row.push(field);rows.push([...row]);}return rows;}
+async function importCsv(file){if(!file)return;try{if(file.size>2_000_000)throw Error('CSV file is too large (2 MB max).');const raw=(await file.text()).replace(/^\uFEFF/,'');const rows=csvParse(raw);if(rows.length<2)throw Error('CSV has no data rows.');const headers=rows.shift().map(x=>x.trim());for(const k of ['name','job','amount'])if(!headers.includes(k))throw Error(`Missing required CSV header: ${k}.`);let added=0,skipped=0;
+ for(const row of rows){const o={};headers.forEach((h,i)=>o[h]=(row[i]||'').trim());const amount=Number(o.amount);if(!o.name||!o.job||!Number.isFinite(amount)||amount<0||amount>100000000){skipped++;continue;}const status=STATUSES.includes(o.status)?o.status:'Quote sent';const quoteDate=validIsoDate(o.quoteDate)?o.quoteDate:today();let nextFollowup=validIsoDate(o.nextFollowup)?o.nextFollowup:dayOffset(3);if(!OPEN_STATUSES.includes(status))nextFollowup='';if(state.leads.some(l=>l.name.toLowerCase()===o.name.toLowerCase() && l.job.toLowerCase()===o.job.toLowerCase() && Number(l.amount)===amount && l.quoteDate===quoteDate)){skipped++;continue;}const newLead={id:id(),name:o.name.slice(0,100),email:(o.email||'').slice(0,120),phone:(o.phone||'').slice(0,60),job:o.job.slice(0,100),amount,status,quoteDate,nextFollowup,lastContact:o.lastContact||quoteDate,followups:Math.max(0,Math.min(999,Number(o.followups)||0)),notes:(o.notes||'').slice(0,1000),history:[{date:today(),event:'Imported from CSV'}]};state.leads.push(newLead);added++;}persist();render();toast(`Imported ${added} estimates${skipped?`; skipped ${skipped} invalid row(s)`:''}.`);
+ }catch(e){toast('Import failed: '+e.message);}finally{el('csvFile').value='';}}
+function sampleCsv(){const s=['name,email,phone,job,amount,status,quoteDate,nextFollowup,lastContact,followups,notes','Jamie Example,jamie@example.com,,Roof inspection,850,Quote sent,'+today()+','+dayOffset(3)+','+today()+',0,Interested in a quick inspection'];download('EstimateFollow_sample.csv',s.join('\r\n'));}
+async function copyDraft(){const tx=el('draftBody');if(!tx)return;try{await navigator.clipboard.writeText(tx.value);toast('Draft copied. Nothing was sent.');const l=findLead();if(l)guideEvent('draft',l.id,'clipboard_write_success');}catch(e){tx.focus();tx.select();try{if(document.execCommand('copy')){toast('Draft copied. Nothing was sent.');const l=findLead();if(l)guideEvent('draft',l.id,'legacy_copy_success');}else toast('Select the draft and copy it manually.');}catch(e2){toast('Select the draft and copy it manually.');}}}
+function resetDemo(){if(!window.confirm('Replace local estimates and settings with fictional demo data? This cannot be undone unless you exported a CSV.'))return;state=defaultState();persist();render();showView('overview');toast('Demo reset to original sample data.');}
+function saveSettings(e){e.preventDefault();const f=e.target;if(!validForm(f))return;const data=new FormData(f);state.settings={businessName:String(data.get('businessName')).trim(),senderName:String(data.get('senderName')).trim(),businessPhone:String(data.get('businessPhone')).trim(),businessEmail:String(data.get('businessEmail')).trim()};persist();toast('Business identity saved locally.');}
+function addLead(e){e.preventDefault();const f=e.target;if(!validForm(f))return;const d=new FormData(f);const l={id:id(),name:String(d.get('name')).trim(),email:String(d.get('email')).trim(),phone:String(d.get('phone')).trim(),job:String(d.get('job')).trim(),amount:Number(d.get('amount')),status:String(d.get('status')),quoteDate:String(d.get('quoteDate')),nextFollowup:String(d.get('nextFollowup')),lastContact:String(d.get('quoteDate')),followups:0,notes:String(d.get('notes')).trim(),history:[{date:today(),event:'Estimate created'}]};if(!l.name||!l.job||!Number.isFinite(l.amount)||l.amount<0||l.amount>100000000)return toast('Check required fields.');if(closeStatus(l))l.nextFollowup='';state.leads.unshift(l);persist();el('searchInput').value='';el('statusFilter').value='all';guideEvent('created',l.id);render();hideOverlay('create');showView('pipeline');toast('New estimate saved locally.');}
+
+// Local, non-identifying guided usability test. No network requests and no lead data in exports.
+const GUIDE_KEY='estimatefollow_guided_test_v03';
+let guide=null;
+function restoreGuide(){try{const g=JSON.parse(localStorage.getItem(GUIDE_KEY)||'null');if(g&&g.version===3&&g.steps&&typeof g.startedAt==='string')return g;}catch(e){}return null;}
+function saveGuide(){try{if(guide)localStorage.setItem(GUIDE_KEY,JSON.stringify(guide));else localStorage.removeItem(GUIDE_KEY);}catch(e){}}
+function hasGuide(){return !!guide && !guide.endedAt;}
+function guideComplete(){return hasGuide() && Object.values(guide.steps).every(Boolean);}
+function guideStage(){if(!hasGuide())return 0;return guide.steps.created?(guide.steps.draft?(guide.steps.followed?(guide.steps.won?3:2):2):1):0;}
+function guideEvent(type,leadId,meta='observed'){
+ if(!hasGuide())return;
+ if(type==='created'){
+   const l=state.leads.find(x=>x.id===leadId);
+   if(guide.steps.created||!l||l.amount!==1450||!l.job.toLowerCase().includes('deck')||!l.nextFollowup||l.nextFollowup>=today())return;
+   guide.leadId=leadId;guide.steps.created=true;
+ }else{
+   if(!guide.steps.created||guide.leadId!==leadId)return;
+   if(type==='draft' && !guide.steps.draft){guide.steps.draft=true;guide.draftEvidence=meta;}
+   if(type==='followed' && guide.steps.draft)guide.steps.followed=true;
+   if(type==='won' && guide.steps.followed)guide.steps.won=true;
+ }
+ if(guideComplete()&&!guide.completedAt)guide.completedAt=new Date().toISOString();
+ saveGuide();renderGuide();
+}
+function startGuide(){
+ if(!window.confirm('Start a fresh usability test? This resets ALL local demo estimates and settings on this device, and replaces any previous test report. Export anything you need first.'))return;
+ state=defaultState();persist();render();
+ el('guideFeedbackForm').reset(); // prevent prior tester answers carrying into the next volunteer session
+ guide={version:3,code:'TEST-'+Math.random().toString(36).slice(2,8).toUpperCase(),startedAt:new Date().toISOString(),completedAt:null,endedAt:null,leadId:null,draftEvidence:null,steps:{created:false,draft:false,followed:false,won:false}};
+ saveGuide();renderGuide();showView('overview');
+ toast('Test started. Follow the three steps; no real customer data.');
+}
+function endGuide(){if(!hasGuide())return;guide.endedAt=new Date().toISOString();saveGuide();renderGuide();toast('Test ended. You can still export feedback.');}
+function renderGuide(){
+ const tasks=[
+ ['created','1','Add a $1,450 deck-repair estimate','Use a fictional name and set the next follow-up to yesterday.'],
+ ['draft','2','Review a follow-up message','Find that quote, open it, and copy the message draft.'],
+ ['won','3','Complete follow-up, then mark Won','Mark the same quote contacted, then mark the job Won.']
+ ];
+ const active=hasGuide();const steps=guide?.steps||{};
+ el('guideProgress').innerHTML=tasks.map(([key,n,title,detail])=>{
+  const done=!!steps[key];return `<div class="guide-task ${done?'complete':''}"><span class="guide-check">${done?'✓':n}</span><div><strong>${title}</strong><small>${detail}</small></div></div>`;
+ }).join('');
+ el('guideControls').hidden=!active;
+ el('guideFeedback').hidden=!guide;
+ el('startGuideBtn').textContent=guide?'Restart test':'Start a fresh test';
+ el('guideReviewedBtn').disabled=!active||!steps.created||steps.draft;
+ el('guideFindBtn').disabled=!active||!steps.created;
+ el('guideCreateBtn').disabled=!active||steps.created;
+ if(!guide)el('guideStatus').textContent='Start the test to record your progress. No personal information is collected.';
+ else if(guide.endedAt)el('guideStatus').textContent='Test stopped. Export the partial result if something prevented completion.';
+ else if(guideComplete())el('guideStatus').textContent='All three tasks completed. Record your opinion below and export the anonymous result.';
+ else el('guideStatus').textContent=`Test active · ${guideStage()} of 3 tasks complete · No user data is uploaded.`;
+}
+function manualDraftReviewed(){if(!hasGuide()||!guide.steps.created)return;guideEvent('draft',guide.leadId,'self_reported_manual_review');toast('Manual review recorded (not verified clipboard copy).');}
+function guideFind(){if(!hasGuide()||!guide.leadId)return;showView('pipeline');el('searchInput').value=state.leads.find(l=>l.id===guide.leadId)?.name||'';el('statusFilter').value='all';renderPipeline();}
+function exportGuide(e){e.preventDefault();if(!guide)return;
+ const f=el('guideFeedbackForm');const d=new FormData(f);
+ const report={schema:'estimatefollow_demo_usability_v1',test_code:guide.code,started_at:guide.startedAt,completed_at:guide.completedAt||null,ended_at:guide.endedAt||null,exported_at:new Date().toISOString(),elapsed_seconds:Math.max(0,Math.round((new Date((guide.completedAt||guide.endedAt||new Date().toISOString())).getTime()-new Date(guide.startedAt).getTime())/1000)),tasks:{created:!!guide.steps.created,draft_reviewed:!!guide.steps.draft,followup_completed:!!guide.steps.followed,marked_won:!!guide.steps.won},draft_evidence:guide.draftEvidence||'none',self_report_unassisted:d.get('independent')==='on',feedback:{followup_problem:String(d.get('pain')),pilot_interest:String(d.get('pilot')),price_preference:String(d.get('price')),missing_feature:['none','import','reminders','two_way_messages','draft_quality','sync','other'].includes(String(d.get('blocker')))?String(d.get('blocker')):'none'}};
+ const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='EstimateFollow_anonymous_test_'+guide.code+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+ toast('Anonymous test result exported. Nothing was uploaded.');
+}
+function initGuide(){
+ guide=restoreGuide();renderGuide();
+ el('startGuideBtn').addEventListener('click',startGuide);
+ el('guideCreateBtn').addEventListener('click',openCreate);
+ el('guideFindBtn').addEventListener('click',guideFind);
+ el('guideReviewedBtn').addEventListener('click',manualDraftReviewed);
+ el('guideFeedbackForm').addEventListener('submit',exportGuide);
+ el('stopGuideBtn').addEventListener('click',endGuide);
+}
+
+let deferredInstallPrompt=null;
+function updateConnectivity(){const n=el('connectionStatus');n.textContent=navigator.onLine?'Online':'Offline · local demo only';n.classList.toggle('offline',!navigator.onLine);}
+function initPwa(){
+ updateConnectivity();window.addEventListener('online',updateConnectivity);window.addEventListener('offline',updateConnectivity);
+ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;el('installBtn').hidden=false;});
+ window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;el('installBtn').hidden=true;toast('App installed.');});
+ el('installBtn').addEventListener('click',async()=>{if(!deferredInstallPrompt)return toast('Use your browser menu to install this app.');const p=deferredInstallPrompt;deferredInstallPrompt=null;el('installBtn').hidden=true;try{await p.prompt();}catch(e){toast('Open your browser menu to install.');}});
+ if('serviceWorker' in navigator && (location.protocol==='https:' || ['localhost','127.0.0.1','[::1]'].includes(location.hostname))){navigator.serviceWorker.register('./sw.js').catch(()=>toast('Offline app cache unavailable.'));}
+}
+function initEvents(){document.addEventListener('click',e=>{const nav=e.target.closest('[data-nav]');if(nav){showView(nav.dataset.nav);return;}const opened=e.target.closest('[data-open]');if(opened){openDetail(opened.dataset.open);return;}const closed=e.target.closest('[data-close]');if(closed){hideOverlay(closed.dataset.close);return;}});
+ el('newBtn').addEventListener('click',openCreate);el('exportBtn').addEventListener('click',exportCsv);el('importBtn').addEventListener('click',()=>el('csvFile').click());el('csvFile').addEventListener('change',e=>importCsv(e.target.files[0]));el('createForm').addEventListener('submit',addLead);el('settingsForm').addEventListener('submit',saveSettings);el('resetBtn').addEventListener('click',resetDemo);el('downloadSample').addEventListener('click',sampleCsv);el('searchInput').addEventListener('input',renderPipeline);el('statusFilter').addEventListener('change',renderPipeline);el('saveDetailBtn').addEventListener('click',saveDetail);
+ el('detailContent').addEventListener('click',e=>{if(e.target.closest('#markWonBtn'))updateStatus('Won');else if(e.target.closest('#markLostBtn'))updateStatus('Lost');else if(e.target.closest('#contactedBtn'))markContacted();else if(e.target.closest('#generateDraftBtn')){const l=findLead();if(l){currentTone=el('toneSelect').value;el('draftBody').value=draftFor(l,currentTone);toast('Draft regenerated.');}}else if(e.target.closest('#copyDraftBtn'))copyDraft();});
+ ['create','detail'].forEach(name=>el(name+'Overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)hideOverlay(name);}));document.addEventListener('keydown',e=>{if(e.key==='Escape'){hideOverlay('detail');hideOverlay('create');}});
+}
+state=load();initEvents();initPwa();initGuide();render();showView('overview');if(!localStorageAvailable)toast('Local browser storage unavailable. Changes may not persist.');
+window.EstimateFollowDebug={getGuide:()=>guide?JSON.parse(JSON.stringify(guide)):null,getState:()=>JSON.parse(JSON.stringify(state)),today,dayOffset,draftFor,csvParse};
+})();
+</script>
+</body>
+</html>
